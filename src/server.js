@@ -37,4 +37,5 @@ app.get("/clip/:slug", async (req, res) => {
     }
 });
 
-app.listen(8888, () => console.log("Server running"));
+const port = process.env.PORT || 8888
+app.listen(port, () => console.log(`Server running on port ${port}`));
