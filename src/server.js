@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 
 const twitchService = require("./twitchService");
+const conversion = require("./conversion");
 
 const app = express();
 
@@ -35,6 +36,23 @@ app.get("/clip/:slug", async (req, res) => {
         console.log(err);
         return res.status(500).json({message: 'error'});
     }
+});
+
+app.get("/convtest", async (req, res) => {
+    const slug = "EsteemedPiliableOpossumBCWarrior-IAwjrAI8yS4oxlF3"
+    const clientId = await twitchService.getClientId();
+
+    const clip = await twitchService.getClipSourceURL(slug, clientId);
+
+    const stream = await twitchService.downloadClip(clip);
+
+    conversion.convert(stream, (output, err) => {
+        if (err) {
+            return res.status(500).json({message: 'error'});
+        } else {
+            return res.download(output);
+        }
+    });
 });
 
 const port = process.env.PORT || 8888
