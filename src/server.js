@@ -38,21 +38,56 @@ app.get("/clip/:slug", async (req, res) => {
     }
 });
 
-app.get("/convtest", async (req, res) => {
-    const slug = "EsteemedPiliableOpossumBCWarrior-IAwjrAI8yS4oxlF3"
-    const clientId = await twitchService.getClientId();
+app.get("/source/:slug", async (req, res) => {
+    const { slug } = req.params;
 
-    const clip = await twitchService.getClipSourceURL(slug, clientId);
+    try {
+        const clientId = await twitchService.getClientId();
 
-    const stream = await twitchService.downloadClip(clip);
+        const clip = await twitchService.getClipInfo(slug, clientId);
 
-    conversion.convert(stream, (output, err) => {
-        if (err) {
-            return res.status(500).json({message: 'error'});
-        } else {
-            return res.download(output);
-        }
-    });
+        return res.json(clip);
+    } catch(err) {
+        console.log(err);
+        return res.status(500).json({message: 'error'});
+    }
+});
+
+app.get("/audio", async (req, res) => {
+    const { clip } = req.query;
+    const sourceURL = decodeURI(clip);
+
+    try {
+        const stream = await twitchService.downloadClip(sourceURL);
+        conversion.convert(stream, (output, err) => {
+            if (err) {
+                throw err;
+            } else {
+                return res.download(output);
+            }
+        });
+    } catch(err) {
+        console.log(err);
+        return res.status(500).json({message: 'error'});
+    }
+});
+
+app.get("/clipdl", async (req, res) => {
+    
+    const { source } = req.query;
+
+    try {
+        const stream = await twitchService.downloadClip(source);
+
+        res.statusCode = 200;
+        res.setHeader('Content-type', 'video/mp4');
+        res.setHeader('Content-disposition', 'attachment; filename=clip.mp4');
+
+        return stream.pipe(res);
+    } catch(err) {
+        console.log(err);
+        return res.status(500).json({message: 'error'});
+    }
 });
 
 const port = process.env.PORT || 8888
