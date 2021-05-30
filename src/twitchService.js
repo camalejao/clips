@@ -91,7 +91,7 @@ module.exports = {
             let title = data[1].data.clip.title;
             
 
-            return { clipSourceURL, title };
+            return { sourceURL: clipSourceURL, title };
 
         } catch (err) {
             throw new Error(err);
