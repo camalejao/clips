@@ -39,7 +39,16 @@ module.exports = {
         
         try {
             let {data} = await axios.post("https://gql.twitch.tv/gql", query, { headers: { "Client-Id": clientId } });
-            return data[0].data.clip.videoQualities[0].sourceURL;
+            
+            let clip = data[0].data.clip;
+            let token = clip.playbackAccessToken;
+            
+            let clipSourceURL = clip.videoQualities[0].sourceURL;
+            clipSourceURL += `?sig=${token.signature}`;
+            clipSourceURL += `&token=${encodeURIComponent(token.value)}`;
+            
+            return clipSourceURL;
+
         } catch (err) {
             throw new Error(err);
         }
@@ -71,9 +80,19 @@ module.exports = {
         
         try {
             let {data} = await axios.post("https://gql.twitch.tv/gql", query, { headers: { "Client-Id": clientId } });
-            let sourceURL = data[0].data.clip.videoQualities[0].sourceURL;
+            
+            let clip = data[0].data.clip;
+            let token = clip.playbackAccessToken;
+            
+            let clipSourceURL = clip.videoQualities[0].sourceURL;
+            clipSourceURL += `?sig=${token.signature}`;
+            clipSourceURL += `&token=${encodeURIComponent(token.value)}`;
+            
             let title = data[1].data.clip.title;
-            return { sourceURL, title };
+            
+
+            return { clipSourceURL, title };
+
         } catch (err) {
             throw new Error(err);
         }
