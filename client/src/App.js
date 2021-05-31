@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Component } from "react";
+import ErrorWarning from './components/ErrorWarning';
 
 class App extends Component {
 
@@ -10,6 +11,7 @@ class App extends Component {
       link: '',
       sourceURL: '',
       title: '',
+      error: '',
       hasClip: false,
     };
 
@@ -22,15 +24,15 @@ class App extends Component {
   handleChange(event) { this.setState({link: event.target.value}); }
 
   searchClip() {
-    
+    this.setState({error: ''});
     const clipURL = this.state.link;
     const slug = this.getSlug(clipURL);
     
     if (slug) {
       
-      this.setState({hasClip: false});
-      this.setState({sourceURL: ''});
-      this.setState({title: ''});
+      // this.setState({hasClip: false});
+      // this.setState({sourceURL: ''});
+      // this.setState({title: ''});
 
       const reqURL = '/source/' + slug;
       axios.get(reqURL)
@@ -40,9 +42,16 @@ class App extends Component {
           this.setState({title: data.title});
           this.setState({hasClip: true});
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+          console.log(err);
+          this.setState({error: 'Ocorreu um erro ao carregar as informações do clip :('});
+        });
+
     } else {
-      window.alert('link inválido');
+      let msg = 'O link fornecido é inválido. Tente usar um link no formato ';
+      msg += 'https://clips.twitch.tv/EnjoyableShakingStrawberryBatChest ou ';
+      msg += 'https://www.twitch.tv/esl_csgo/clip/EnjoyableShakingStrawberryBatChest';
+      this.setState({error: msg});
     }
   }
 
@@ -57,6 +66,7 @@ class App extends Component {
   }
 
   audioDownload() {
+    this.setState({error: ''});
     const reqURL = '/audio/';
     const params = { clip: encodeURI(this.state.sourceURL) };
     axios({url: reqURL, method: 'GET', responseType: 'blob', params})
@@ -69,7 +79,10 @@ class App extends Component {
         link.click();
         document.body.removeChild(link);
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        console.log(err);
+        this.setState({error: 'Ocorreu um erro ao extrair o áudio do clip :('});
+      });
   }
 
   getSlug(url) {
@@ -108,40 +121,44 @@ class App extends Component {
             </button>
           </form>
 
-          {hasClip &&
-            <div className="mt-3 mb-3">
+          {(hasClip || this.state.error.length > 0) &&
+          <div className="mt-3 mb-3">
               <hr />
-              <h3 className="mt-3 mb-3">{ this.state.title }</h3>
-              
-              <div className="row mt-3">
+              <ErrorWarning errorMsg={this.state.error} />
+              {hasClip &&
+                <div>
+                <h3 className="mt-3 mb-3">{ this.state.title }</h3>
                 
-                <div className="col-sm-12 col-lg-8">
-                  <div className="ratio ratio-16x9">
-                    <video controls>
-                      <source src={ this.state.sourceURL } type="video/mp4" />
-                    </video>
+                <div className="row mt-3">
+                  
+                  <div className="col-sm-12 col-lg-8">
+                    <div className="ratio ratio-16x9">
+                      <video controls>
+                        <source src={ this.state.sourceURL } type="video/mp4" />
+                      </video>
+                    </div>
                   </div>
-                </div>
 
-                <div className="col-sm-12 col-lg-4 d-flex flex-column justify-content-center text-center">
-                  <h5 className="mt-3 mb-3">Opções de Download</h5>
-                  <div><button
-                    className="btn mt-2"
-                    onClick={this.handleDownload}
-                  >
-                    Baixar Vídeo
-                  </button></div>
-                  <div><button
-                    className="btn mt-2"
-                    onClick={this.audioDownload}
-                  >
-                    Baixar Áudio
-                  </button></div>
-                </div>
-
+                  <div className="col-sm-12 col-lg-4 d-flex flex-column justify-content-center text-center">
+                    <h5 className="mt-3 mb-3">Opções de Download</h5>
+                    <div><button
+                      className="btn mt-2"
+                      onClick={this.handleDownload}
+                    >
+                      Baixar Vídeo
+                    </button></div>
+                    <div><button
+                      className="btn mt-2"
+                      onClick={this.audioDownload}
+                    >
+                      Baixar Áudio
+                    </button></div>
+                  </div>
               </div>
-            </div>
-          }
+              </div>
+              }
+          </div>
+        }
         </div>
       </div>
     );
