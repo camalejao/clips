@@ -89,7 +89,7 @@ class App extends Component {
   getSlug(url) {
     // regex hell
     const matches = url.match(
-      /(?<=twitch.tv\/[A-Za-z0-9\-]*\/clip\/|clips.twitch\.tv\/)([A-Za-z0-9\-]*)/g
+      /(?<=twitch.tv\/[A-Za-z0-9-_]*\/clip\/|clips.twitch\.tv\/)([A-Za-z0-9-_]*)/g
     );
     return matches ? matches[0] : false;
   }
