@@ -89,22 +89,24 @@ class App extends Component {
 
           <h1 className="display-3 mt-lg-5 mb-lg-5" style={{ color:'#6f42c1' }}>Clips</h1>
           
-          <input
-            className="form-control mt-3"
-            value={this.state.link}
-            onChange={this.handleChange}
-            placeholder="Cole aqui o link do clip!"
-            type="text"
-            name="link"
-          />
-          
-          <button
-            className="btn mt-3"
-            onClick={this.searchClip}
-            disabled={disabled}
-          >
-            Buscar Clip
-          </button>
+          <form onSubmit={(e) => {this.searchClip(); e.preventDefault()}}>
+            <input
+              className="form-control mt-3"
+              value={this.state.link}
+              onChange={this.handleChange}
+              placeholder="Cole aqui o link do clip!"
+              type="text"
+              name="link"
+            />
+            
+            <button
+              className="btn mt-3"
+              type="submit"
+              disabled={disabled}
+            >
+              Buscar Clip
+            </button>
+          </form>
 
           {hasClip &&
             <div className="mt-3 mb-3">
