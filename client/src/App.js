@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Component } from "react";
 import ErrorWarning from './components/ErrorWarning';
+import Clip from './components/Clip';
 
 class App extends Component {
 
@@ -122,43 +123,17 @@ class App extends Component {
           </form>
 
           {(hasClip || this.state.error.length > 0) &&
-          <div className="mt-3 mb-3">
-              <hr />
-              <ErrorWarning errorMsg={this.state.error} />
-              {hasClip &&
-                <div>
-                <h3 className="mt-3 mb-3">{ this.state.title }</h3>
-                
-                <div className="row mt-3">
-                  
-                  <div className="col-sm-12 col-lg-8">
-                    <div className="ratio ratio-16x9">
-                      <video controls>
-                        <source src={ this.state.sourceURL } type="video/mp4" />
-                      </video>
-                    </div>
-                  </div>
-
-                  <div className="col-sm-12 col-lg-4 d-flex flex-column justify-content-center text-center">
-                    <h5 className="mt-3 mb-3">Opções de Download</h5>
-                    <div><button
-                      className="btn mt-2"
-                      onClick={this.handleDownload}
-                    >
-                      Baixar Vídeo
-                    </button></div>
-                    <div><button
-                      className="btn mt-2"
-                      onClick={this.audioDownload}
-                    >
-                      Baixar Áudio
-                    </button></div>
-                  </div>
-              </div>
-              </div>
-              }
-          </div>
-        }
+            <div className="mt-3 mb-3">
+                <hr />
+                <ErrorWarning errorMsg={this.state.error} />
+                <Clip
+                  title={this.state.title}
+                  sourceURL={this.state.sourceURL}
+                  handleDownload={this.handleDownload}
+                  audioDownload={this.audioDownload}
+                />
+            </div>
+          }
         </div>
       </div>
     );
