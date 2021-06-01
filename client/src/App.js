@@ -57,13 +57,23 @@ class App extends Component {
   }
 
   handleDownload() {
-    let url = this.state.sourceURL;
-    let link = document.createElement("a");
-    link.href = url;
-    link.download = this.state.title + ".mp4";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    this.setState({error: ''});
+    const reqURL = '/clipdl/';
+    const params = { source: encodeURI(this.state.sourceURL) };
+    axios({url: reqURL, method: 'GET', responseType: 'blob', params})
+      .then(response => {
+        let url = window.URL.createObjectURL(response.data);
+        let link = document.createElement("a");
+        link.href = url;
+        link.download = this.state.title + ".mp4";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      })
+      .catch(err => {
+        console.log(err);
+        this.setState({error: 'Ocorreu um erro ao baixar o clip :('});
+      });
   }
 
   audioDownload() {

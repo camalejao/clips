@@ -77,7 +77,7 @@ app.get("/clipdl", async (req, res) => {
     const { source } = req.query;
 
     try {
-        const stream = await twitchService.downloadClip(source);
+        const stream = await twitchService.downloadClip(decodeURI(source));
 
         res.statusCode = 200;
         res.setHeader('Content-type', 'video/mp4');
