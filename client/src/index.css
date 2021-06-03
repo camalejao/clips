@@ -9,3 +9,49 @@ button:hover {
     color: white !important;
     border: none !important;
 }
+
+.stage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 2rem 0;
+    margin: 0 -5%;
+    overflow: hidden;
+}
+
+.dot-typing {
+    position: relative;
+    left: -9999px;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    background-color: #6f42c1;
+    color: #6f42c1;
+    box-shadow: 9969px 0 0 0 #6f42c1, 9999px 0 0 0 #6f42c1, 10029px 0 0 0 #6f42c1;
+    animation: dotTyping 1.5s infinite linear;
+}
+
+@keyframes dotTyping {
+    0% {
+        box-shadow: 9969px 0 0 0 #6f42c1, 9999px 0 0 0 #6f42c1, 10029px 0 0 0 #6f42c1;
+    }
+    16.667% {
+        box-shadow: 9969px -20px 0 0 #6f42c1, 9999px 0 0 0 #6f42c1, 10029px 0 0 0 #6f42c1;
+    }
+    33.333% {
+        box-shadow: 9969px 0 0 0 #6f42c1, 9999px 0 0 0 #6f42c1, 10029px 0 0 0 #6f42c1;
+    }
+    50% {
+        box-shadow: 9969px 0 0 0 #6f42c1, 9999px -20px 0 0 #6f42c1, 10029px 0 0 0 #6f42c1;
+    }
+    66.667% {
+        box-shadow: 9969px 0 0 0 #6f42c1, 9999px 0 0 0 #6f42c1, 10029px 0 0 0 #6f42c1;
+    }
+    83.333% {
+        box-shadow: 9969px 0 0 0 #6f42c1, 9999px 0 0 0 #6f42c1, 10029px -20px 0 0 #6f42c1;
+    }
+    100% {
+        box-shadow: 9969px 0 0 0 #6f42c1, 9999px 0 0 0 #6f42c1, 10029px 0 0 0 #6f42c1;
+    }
+}

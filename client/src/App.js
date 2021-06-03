@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Component } from "react";
 import ErrorWarning from './components/ErrorWarning';
+import Loading from './components/Loading';
 import Clip from './components/Clip';
 
 class App extends Component {
@@ -13,6 +14,7 @@ class App extends Component {
       sourceURL: '',
       title: '',
       error: '',
+      isLoading: false,
       hasClip: false,
     };
 
@@ -30,7 +32,7 @@ class App extends Component {
     const slug = this.getSlug(clipURL);
     
     if (slug) {
-      
+      this.setState({isLoading: true});
       // this.setState({hasClip: false});
       // this.setState({sourceURL: ''});
       // this.setState({title: ''});
@@ -39,6 +41,7 @@ class App extends Component {
       axios.get(reqURL)
         .then(({data}) => {
           console.log(data);
+          this.setState({isLoading: false});
           this.setState({sourceURL: data.sourceURL});
           this.setState({title: data.title});
           this.setState({hasClip: true});
@@ -106,6 +109,7 @@ class App extends Component {
 
   render() {
     const disabled = !this.state.link.length > 0;
+    const isLoading = this.state.isLoading;
     const hasClip = this.state.hasClip;
     return (
       <div className="card mx-auto text-center mt-5 mb-5">
@@ -132,9 +136,10 @@ class App extends Component {
             </button>
           </form>
 
-          {(hasClip || this.state.error.length > 0) &&
+          {(hasClip || isLoading || this.state.error.length > 0) &&
             <div className="mt-3 mb-3">
                 <hr />
+                <Loading loading={isLoading} />
                 <ErrorWarning errorMsg={this.state.error} />
                 <Clip
                   title={this.state.title}
