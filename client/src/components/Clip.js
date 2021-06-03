@@ -14,7 +14,7 @@ class Clip extends Component {
 
             <div className="col-sm-12 col-lg-8">
               <div className="ratio ratio-16x9">
-                <video controls>
+                <video key={sourceURL} controls>
                   <source src={sourceURL} type="video/mp4" />
                 </video>
               </div>
