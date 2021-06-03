@@ -4,7 +4,7 @@ import ErrorWarning from './components/ErrorWarning';
 import Loading from './components/Loading';
 import Clip from './components/Clip';
 
-class App extends Component {
+class ClipsApp extends Component {
 
   constructor() {
     super();
@@ -155,4 +155,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default ClipsApp;

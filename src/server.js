@@ -17,6 +17,10 @@ app.get("/", (req, res) => {
     return res.render("index.html");
 });
 
+app.get("/yt", (req, res) => {
+    return res.render("index.html");
+});
+
 app.get("/clip/:slug", async (req, res) => {
     
     const { slug } = req.params;
@@ -103,6 +107,11 @@ app.get("/ytoptions", async (req, res) => {
         return res.status(500).json({message: 'error'});
     }
 
+});
+
+app.use((req, res) => {
+    res.status(404);
+    return res.render("index.html");
 });
 
 const port = process.env.PORT || 8888

@@ -10,6 +10,19 @@ button:hover {
     border: none !important;
 }
 
+.button {
+    background-color: #6f42c1 !important;
+    color: white !important;
+    border: none !important;
+}
+
+.button:hover {
+    background-color: #9159e4 !important;
+    color: white !important;
+    border: none !important;
+}
+
+
 .stage {
     display: flex;
     justify-content: center;
