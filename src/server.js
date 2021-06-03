@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 
 const twitchService = require("./twitchService");
+const youtubeService = require("./youtubeService");
 const conversion = require("./conversion");
 
 const app = express();
@@ -88,6 +89,20 @@ app.get("/clipdl", async (req, res) => {
         console.log(err);
         return res.status(500).json({message: 'error'});
     }
+});
+
+app.get("/ytoptions", async (req, res) => {
+
+    const { videoUrl } = req.query;
+
+    try {
+        const options = await youtubeService.getDownloadOptions(videoUrl);
+        return res.json({ options });
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({message: 'error'});
+    }
+
 });
 
 const port = process.env.PORT || 8888
