@@ -40,7 +40,7 @@ class YTApp extends Component {
       <div className="card mx-auto text-center mt-5 mb-5">
         <div className="card-body">
 
-          <h1 className="display-3 mt-lg-5 mb-lg-5" style={{ color:'#6f42c1' }}>Videos</h1>
+          <h1 className="display-3 mt-lg-5 mb-lg-5" style={{ color:'#ff0000' }}>Videos</h1>
           
           <form onSubmit={(e) => {this.searchVideo(); e.preventDefault()}}>
             <input
@@ -53,7 +53,7 @@ class YTApp extends Component {
             />
             
             <button
-              className="btn mt-3"
+              className="btn btn-yt mt-3"
               type="submit"
               disabled={disabled}
             >

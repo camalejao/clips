@@ -128,7 +128,7 @@ class ClipsApp extends Component {
             />
             
             <button
-              className="btn mt-3"
+              className="btn btn-ttv mt-3"
               type="submit"
               disabled={disabled}
             >

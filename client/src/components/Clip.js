@@ -24,14 +24,14 @@ class Clip extends Component {
               <h5 className="mt-3 mb-3">Opções de Download</h5>
 
               <div><button
-                className="btn mt-2"
+                className="btn btn-ttv mt-2"
                 onClick={handleDownload}
               >
                 Baixar Vídeo
               </button></div>
 
               <div><button
-                className="btn mt-2"
+                className="btn btn-ttv mt-2"
                 onClick={audioDownload}
               >
                 Baixar Áudio

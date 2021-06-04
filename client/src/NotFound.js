@@ -10,8 +10,8 @@ class NotFound extends Component {
           <h1 className="mt-lg-5 mb-lg-5" style={{ color:'#6f42c1' }}>Página não encontrada :(</h1>
           
           <div className="column">
-            <Link className="btn button m-2" to="/">Baixar clips da Twitch</Link>
-            <Link className="btn button m-2" to="/yt">Baixar vídeos do YT</Link>
+            <Link className="btn btn-ttv m-2" to="/">Baixar clips da Twitch</Link>
+            <Link className="btn btn-yt m-2" to="/yt">Baixar vídeos do YT</Link>
           </div>
           
         </div>
