@@ -3,14 +3,17 @@ import { Component } from "react";
 class Loading extends Component {
 
   render() {
-    const { loading } = this.props;
+    const { loading, app } = this.props;
 
     if (loading) {
       return (
         <div>
           <span>Carregando...</span>
           <div className="stage">
-              <div className="dot-typing"></div>
+              {app === 'yt'
+                ? <div className="dot-typing-yt"></div>
+                : <div className="dot-typing"></div>
+              }
           </div>
         </div>
       );

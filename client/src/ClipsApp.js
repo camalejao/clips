@@ -139,7 +139,7 @@ class ClipsApp extends Component {
           {(hasClip || isLoading || this.state.error.length > 0) &&
             <div className="mt-3 mb-3">
                 <hr />
-                <Loading loading={isLoading} />
+                <Loading loading={isLoading} app={'ttv'} />
                 <ErrorWarning errorMsg={this.state.error} />
                 <Clip
                   title={this.state.title}
