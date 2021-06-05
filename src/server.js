@@ -100,13 +100,31 @@ app.get("/ytoptions", async (req, res) => {
     const { videoUrl } = req.query;
 
     try {
-        const options = await youtubeService.getDownloadOptions(videoUrl);
-        return res.json({ options });
+        const result = await youtubeService.getDownloadOptions(videoUrl);
+        return res.json(result);
     } catch (err) {
         console.log(err);
         return res.status(500).json({message: 'error'});
     }
 
+});
+
+app.get("/ytdl", async (req, res) => {
+    
+    const { source, title } = req.query;
+
+    try {
+        const stream = await youtubeService.downloadVideo(decodeURI(source));
+
+        res.statusCode = 200;
+        res.setHeader('Content-type', 'video/mp4');
+        res.setHeader('Content-disposition', `attachment; filename=${title}.mp4`);
+
+        return stream.pipe(res);
+    } catch(err) {
+        console.log(err);
+        return res.status(500).json({message: 'error'});
+    }
 });
 
 app.use((req, res) => {
