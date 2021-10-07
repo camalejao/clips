@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/alt-text */
 import axios from "axios";
 import { Component } from "react";
-import ErrorWarning from './components/ErrorWarning';
-import Loading from './components/Loading';
+import ErrorWarning from './ErrorWarning';
+import Loading from './Loading';
 
 class YTApp extends Component {
 

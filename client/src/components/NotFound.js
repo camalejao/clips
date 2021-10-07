@@ -2,7 +2,7 @@ import { Component } from "react";
 import { Link } from "react-router-dom";
 
 class NotFound extends Component {
-  render() {    
+  render() {
     return (
       <div className="card mx-auto text-center mt-5 mb-5">
         <div className="card-body">

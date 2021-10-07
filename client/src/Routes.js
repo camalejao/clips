@@ -1,8 +1,8 @@
 import { Component } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import ClipsApp from './ClipsApp';
-import NotFound from './NotFound';
-import YTApp from './YTApp';
+import ClipsApp from './components/ClipsApp';
+import NotFound from './components/NotFound';
+import YTApp from './components/YTApp';
 
 class Routes extends Component {
 
