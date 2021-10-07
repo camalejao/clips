@@ -17,6 +17,7 @@ class YTApp extends Component {
       isLoading: false,
       hasResult: false,
       options: [],
+      audio_options: [],
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -35,6 +36,7 @@ class YTApp extends Component {
       .then(({data}) => {
         console.log(data);
         this.setState({options: data.options});
+        this.setState({audio_options: data.audio_options});
         this.setState({title: data.title});
         this.setState({thumbnail: data.thumbnail});
         this.setState({hasResult: true});
@@ -104,6 +106,19 @@ class YTApp extends Component {
                               className="btn btn-yt mb-3"
                             >
                               {option.quality} | {option.container}
+                            </a>
+                          </div>
+                        ))
+                      }
+                      <h5 className="mt-3 mb-3">Download de Áudios</h5>
+                      {
+                        this.state.audio_options.map((option, idx)=> (
+                          <div key={idx}>
+                            <a
+                              href={'/ytdlaudio?source=' + encodeURIComponent(option.url)}
+                              className="btn btn-yt mb-3"
+                            >
+                              {option.quality} kbps
                             </a>
                           </div>
                         ))
