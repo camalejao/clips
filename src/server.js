@@ -118,7 +118,7 @@ app.get("/ytdl", async (req, res) => {
 
         res.statusCode = 200;
         res.setHeader('Content-type', 'video/mp4');
-        res.setHeader('Content-disposition', `attachment; filename=${title}.mp4`);
+        res.setHeader('Content-disposition', `attachment; filename=${title.replace(/\ud83c[\udf00-\udfff]/g, 'X')}.mp4`);
 
         return stream.pipe(res);
     } catch(err) {
