@@ -20,11 +20,24 @@ module.exports = {
                     url: format.url,
                 };
             });
+
+            let audioFormats = ytdl.filterFormats(info.formats, 'audioonly');
+            audioFormats.filter(format => !format.isLive);
+            
+            audioFormats = audioFormats.map(format => {
+                return {
+                    quality: format.audioBitrate,
+                    codec: format.audioCodec,
+                    url: format.url,
+                };
+            });
             
             return {
                 title: info.videoDetails.title,
                 thumbnail: thumbnail_url,
-                options: avFormats
+                options: avFormats,
+                video_options: avFormats,
+                audio_options: audioFormats,
             };
         } catch (err) {
             throw err;

@@ -127,6 +127,25 @@ app.get("/ytdl", async (req, res) => {
     }
 });
 
+app.get("/ytdlaudio", async (req, res) => {
+    
+    const { source } = req.query;
+
+    try {
+        const stream = await youtubeService.downloadVideo(decodeURI(source));
+        conversion.convert(stream, (output, err) => {
+            if (err) {
+                throw err;
+            } else {
+                return res.download(output);
+            }
+        });
+    } catch(err) {
+        console.log(err);
+        return res.status(500).json({message: 'error'});
+    }
+});
+
 app.use((req, res) => {
     res.status(404);
     return res.render("index.html");
