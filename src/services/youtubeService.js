@@ -5,7 +5,7 @@ module.exports = {
 
     async getDownloadOptions(videoUrl) {
         try {
-            const COOKIE = process.env.YT_COOKIE;
+            const COOKIE = process.env.YT_COOKIE_S;
             let info = await ytdl.getInfo(videoUrl, {requestOptions: {headers: {cookie: COOKIE}}});
 
             let thumbs = info.videoDetails.thumbnails;

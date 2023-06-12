@@ -5,8 +5,10 @@ module.exports = {
     async getClientId() {
         try { 
             const { data } = await axios.get("https://twitch.tv");
-            const matches = data.match(/"Client-ID" ?: ?"(.*?)"/);
-            const clientId = matches[0].split(':')[1].replace(/"/g, "");
+            // console.log(data)
+            const matches = data.match(/(?<=clientId=")([^"]+)/g);
+            // console.log(matches)
+            const clientId = matches[0];
             console.log(`Client-ID from Twitch homepage: ${clientId}`);
             return clientId;
         } catch (err) {
