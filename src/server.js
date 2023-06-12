@@ -27,5 +27,5 @@ app.use((req, res) => {
     return res.render("index.html");
 });
 
-const port = process.env.PORT || 8888
+const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server running on port ${port}`));

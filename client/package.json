@@ -33,7 +33,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:8888",
+  "proxy": "http://localhost:3000",
   "devDependencies": {
     "@craco/craco": "^7.0.0",
     "webpack-bundle-analyzer": "^4.7.0"
